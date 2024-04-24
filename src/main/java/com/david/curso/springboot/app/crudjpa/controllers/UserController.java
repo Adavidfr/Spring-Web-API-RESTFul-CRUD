@@ -3,7 +3,7 @@ package com.david.curso.springboot.app.crudjpa.controllers;
 import com.david.curso.springboot.app.crudjpa.entities.User;
 import com.david.curso.springboot.app.crudjpa.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,10 +15,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
 
     @GetMapping
     public List<User> list() {
