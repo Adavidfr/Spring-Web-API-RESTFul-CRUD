@@ -4,7 +4,7 @@ import com.david.curso.springboot.app.crudjpa.entities.Role;
 import com.david.curso.springboot.app.crudjpa.entities.User;
 import com.david.curso.springboot.app.crudjpa.repositories.RoleRepository;
 import com.david.curso.springboot.app.crudjpa.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository repository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository repository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,7 +36,7 @@ public class UserServiceImpl implements UserService{
 
         optionalRoleUser.ifPresent(roles::add);
 
-        if(user.isAdmin()) {
+        if (user.isAdmin()) {
             Optional<Role> optionalRoleAdmin = roleRepository.findByName("ROLE_ADMIN");
             optionalRoleAdmin.ifPresent(roles::add);
         }
@@ -50,8 +46,6 @@ public class UserServiceImpl implements UserService{
 
         return repository.save(user);
     }
-
-
 
 
 }
