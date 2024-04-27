@@ -4,7 +4,6 @@ import com.david.curso.springboot.app.crudjpa.entities.Role;
 import com.david.curso.springboot.app.crudjpa.entities.User;
 import com.david.curso.springboot.app.crudjpa.repositories.RoleRepository;
 import com.david.curso.springboot.app.crudjpa.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,6 +49,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return repository.save(user);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return repository.existsByUsername(username);
     }
 
 
