@@ -1,5 +1,6 @@
 package com.david.curso.springboot.app.crudjpa.entities;
 
+import com.david.curso.springboot.app.crudjpa.validation.ExistsByUsername;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -18,9 +19,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @ExistsByUsername
     @NotBlank
     @Size(min = 4, max = 12)
+    @Column(unique = true)
     private String username;
 
     @NotBlank
